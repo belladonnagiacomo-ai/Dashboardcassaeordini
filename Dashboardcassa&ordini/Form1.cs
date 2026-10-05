@@ -5,6 +5,7 @@ namespace Dashboardcassa_ordini
     public partial class Form1 : Form
     {
         List<string> origineD = new List<string>();
+        double prezzoTotale = 0;
         public Form1()
         {
             InitializeComponent();
@@ -36,28 +37,58 @@ namespace Dashboardcassa_ordini
 
         private void Agg_Click(object sender, EventArgs e)
         {
-            int k = 0;
-            string elemento = txtArt.Text;
-            elemento = elemento.Trim();
-            elemento = elemento.ToLower();
-            for (int i = 0; i < lista.Items.Count; i++)
+            if (string.IsNullOrWhiteSpace(txtArt.Text) || string.IsNullOrWhiteSpace(txtPrezzo.Text) || string.IsNullOrWhiteSpace(txtQ.Text))
             {
-                if (lista.Items[i].ToString() == elemento)
-                {
-                    MessageBox.Show("Elemento già presente");
-                    return;
-                }
+                MessageBox.Show("Inserisci un nome e un prezzo validi.");
             }
-            string p = Convert.ToString(txtPrezzo.Text);
-            lista.Items.Add(elemento);
-            lista.Items.Add(p);
-            origineD.Add(elemento);
-            aggiorna();
+            else
+            {
+                int quantita = Convert.ToInt32(txtQ.Text);
+                double prezzo = Convert.ToDouble(txtPrezzo.Text);
+                string nome = txtArt.Text;
+
+                prezzo = prezzo * quantita;
+                prezzoTotale = prezzoTotale + prezzo;
+                // sistemare problema con virgola e punto
+                origineD.Add("x" + quantita + " " + nome + " - " + prezzo + "€");
+
+                txtQ.Clear();
+                txtPrezzo.Clear();
+                txtArt.Clear();
+
+                Tot.Text = prezzoTotale + "€";
+                aggiorna();
+            }
         }
 
         private void txtPrezzo_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void rem_Click_1(object sender, EventArgs e)
+        {
+            int indice = lista.SelectedIndex;
+
+            if (indice != -1)
+            {
+                origineD.RemoveAt(indice);
+
+                int quantita = Convert.ToInt32(txtQ.Text);
+                double prezzo = Convert.ToDouble(txtPrezzo.Text);
+
+                prezzo = prezzo * quantita;
+                prezzoTotale = prezzoTotale - prezzo;
+
+                Tot.Text = prezzoTotale + "€";
+            }
+            else
+            {
+                MessageBox.Show("errore");
+            }
+
+            aggiorna();
+        }
     }
+    
 }

@@ -33,7 +33,7 @@
             costo = new Label();
             Quant = new Label();
             txtPrezzo = new TextBox();
-            textBox3 = new TextBox();
+            txtQ = new TextBox();
             Agg = new Button();
             rem = new Button();
             lista = new ListBox();
@@ -84,12 +84,12 @@
             txtPrezzo.TabIndex = 4;
             txtPrezzo.TextChanged += txtPrezzo_TextChanged;
             // 
-            // textBox3
+            // txtQ
             // 
-            textBox3.Location = new Point(197, 246);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(125, 27);
-            textBox3.TabIndex = 5;
+            txtQ.Location = new Point(197, 246);
+            txtQ.Name = "txtQ";
+            txtQ.Size = new Size(125, 27);
+            txtQ.TabIndex = 5;
             // 
             // Agg
             // 
@@ -109,6 +109,7 @@
             rem.TabIndex = 7;
             rem.Text = "- Rimuovi voce";
             rem.UseVisualStyleBackColor = true;
+            rem.Click += rem_Click_1;
             // 
             // lista
             // 
@@ -155,7 +156,7 @@
             Controls.Add(lista);
             Controls.Add(rem);
             Controls.Add(Agg);
-            Controls.Add(textBox3);
+            Controls.Add(txtQ);
             Controls.Add(txtPrezzo);
             Controls.Add(Quant);
             Controls.Add(costo);
@@ -174,7 +175,7 @@
         private Label costo;
         private Label Quant;
         private TextBox txtPrezzo;
-        private TextBox textBox3;
+        private TextBox txtQ;
         private Button Agg;
         private Button rem;
         private ListBox lista;
