@@ -144,6 +144,7 @@
             salvaF.TabIndex = 11;
             salvaF.Text = "Salva su file";
             salvaF.UseVisualStyleBackColor = true;
+            salvaF.Click += salvaF_Click;
             // 
             // Form1
             // 

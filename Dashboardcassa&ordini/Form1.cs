@@ -6,6 +6,7 @@ namespace Dashboardcassa_ordini
     {
         List<string> origineD = new List<string>();
         double prezzoTotale = 0;
+        string file = "Spesa.txt";
         public Form1()
         {
             InitializeComponent();
@@ -45,6 +46,11 @@ namespace Dashboardcassa_ordini
             {
                 int quantita = Convert.ToInt32(txtQ.Text);
                 double prezzo = Convert.ToDouble(txtPrezzo.Text);
+                if (txtPrezzo.Text.Contains('.'))
+                {
+                    MessageBox.Show("Errore, cambiare il punto con una virgola");
+                    return;
+                }
                 string nome = txtArt.Text;
 
                 prezzo = prezzo * quantita;
@@ -73,7 +79,6 @@ namespace Dashboardcassa_ordini
             if (indice != -1)
             {
                 origineD.RemoveAt(indice);
-
                 int quantita = Convert.ToInt32(txtQ.Text);
                 double prezzo = Convert.ToDouble(txtPrezzo.Text);
 
@@ -89,6 +94,42 @@ namespace Dashboardcassa_ordini
 
             aggiorna();
         }
+
+        private void caricaDati(string fileName)
+        {
+            if (!File.Exists(fileName))
+            {
+                MessageBox.Show("Il file non esiste");
+            }
+            else
+            {
+                using (StreamReader sr = new StreamReader(fileName))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        string riga = sr.ReadLine();
+                        if (controlloStringa(riga) == true)
+                        {
+                            riga = riga.Trim();
+                            riga = riga.ToLower();
+                            origineD.Add(riga);
+                        }
+                    }
+                }
+            }
+
+        }
+        private void salvaF_Click(object sender, EventArgs e)
+        {
+            using (StreamWriter sw = new StreamWriter(file))
+            {
+                sw.WriteLine(lista.Text);
+                sw.WriteLine("Il totale della spesa è: " + Tot.Text);
+            }
+        }
+
+         
     }
     
+
 }
