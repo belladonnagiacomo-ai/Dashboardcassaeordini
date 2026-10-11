@@ -94,36 +94,15 @@ namespace Dashboardcassa_ordini
 
             aggiorna();
         }
-
-        private void caricaDati(string fileName)
-        {
-            if (!File.Exists(fileName))
-            {
-                MessageBox.Show("Il file non esiste");
-            }
-            else
-            {
-                using (StreamReader sr = new StreamReader(fileName))
-                {
-                    while (!sr.EndOfStream)
-                    {
-                        string riga = sr.ReadLine();
-                        if (controlloStringa(riga) == true)
-                        {
-                            riga = riga.Trim();
-                            riga = riga.ToLower();
-                            origineD.Add(riga);
-                        }
-                    }
-                }
-            }
-
-        }
         private void salvaF_Click(object sender, EventArgs e)
         {
             using (StreamWriter sw = new StreamWriter(file))
             {
-                sw.WriteLine(lista.Text);
+                sw.WriteLine("la lista è: ");
+                for(int i = 0; i < origineD.Count; i++)
+                {
+                    sw.WriteLine(origineD[i]);
+                }
                 sw.WriteLine("Il totale della spesa è: " + Tot.Text);
             }
         }
